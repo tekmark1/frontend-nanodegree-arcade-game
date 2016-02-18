@@ -57,17 +57,18 @@ var Engine = (function(global) {
          * function again as soon as the browser is able to draw another frame.
          */
         win.requestAnimationFrame(main);
-    }
+    };
 
     /* This function does some initial setup that should only occur once,
      * particularly setting the lastTime variable that is required for the
-     * game loop.
+     * game loop. Also runs player.win() and player.lose() when called.
      */
     function init() {
-        reset();
+        player.win();
+        player.lose();
         lastTime = Date.now();
         main();
-    }
+    };
 
     /* This function is called by main (our game loop) and itself calls all
      * of the functions which may need to update entity's data. Based on how
@@ -80,9 +81,9 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();
-    }
+        checkCollisions();
 
+    };
     /* This is called by the update function  and loops through all of the
      * objects within your allEnemies array as defined in app.js and calls
      * their update() methods. It will then call the update function for your
@@ -138,6 +139,7 @@ var Engine = (function(global) {
 
 
         renderEntities();
+
     }
 
     /* This function is called by the render function and is called on each game
@@ -148,20 +150,26 @@ var Engine = (function(global) {
         /* Loop through all of the objects within the allEnemies array and call
          * the render function you have defined.
          */
+
+
         allEnemies.forEach(function(enemy) {
             enemy.render();
         });
 
         player.render();
-    }
 
-    /* This function does nothing but it could have been a good place to
-     * handle game reset states - maybe a new game menu or a game over screen
-     * those sorts of things. It's only called once by the init() method.
-     */
-    function reset() {
-        // noop
-    }
+    };
+
+    // calls player.win() when player gets to water
+    function win() {
+
+    };
+
+    // calls player.lose() when player collides with enemies
+    function lose() {
+
+    };
+
 
     /* Go ahead and load all of the images we know we're going to need to
      * draw our game level. Then set init as the callback method, so that when
